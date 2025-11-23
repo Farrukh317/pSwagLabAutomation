@@ -8,6 +8,14 @@ export class BasePage {
   }
 
   async waitForPageTitle(title: string) {
-    await expect(this.page.locator(".title")).toHaveText(title);
+    // await expect(this.page.locator(".title")).toHaveText(title);
+  
+    const locator = this.page.locator('.title');
+
+    // Wait until the element is attached + visible
+    await locator.waitFor({ state: 'visible' });
+
+    // Now assert the expected text
+    await expect(locator).toHaveText(title, { timeout: 5000 });
   }
 }

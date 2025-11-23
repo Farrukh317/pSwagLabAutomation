@@ -1,14 +1,18 @@
 import { test, expect } from "@playwright/test";
 import { LoginPage } from "../../pages/loginPage";
 import { ProductsPage } from "../../pages/productsPage";
+import env from "../../config/env";
 
 test.describe("Smoke Suite - Basic Access", () => {
   test("User should login successfully", async ({ page }) => {
     const login = new LoginPage(page);
     const products = new ProductsPage(page);
 
-    await login.navigate("https://www.saucedemo.com/");
-    await login.login("standard_user", "secret_sauce");
+    // await login.navigate("https://www.saucedemo.com/");
+    // await login.login("standard_user", "secret_sauce");
+
+    await login.navigate(env.baseURL);
+    await login.login(env.username, env.password);
     await products.assertOnProductsPage();
   });
 });
