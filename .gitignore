@@ -6,3 +6,5 @@ node_modules/
 /blob-report/
 /playwright/.cache/
 /playwright/.auth/
+# Local storage for authenticated sessions — should not be committed
+storageState/

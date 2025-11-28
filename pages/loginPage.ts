@@ -1,23 +1,15 @@
-import { Page, expect } from "@playwright/test";
-import { BasePage } from "./basePage";
+import { Page } from "@playwright/test";
 
-export class LoginPage extends BasePage {
-  readonly usernameInput = this.page.locator("#user-name");
-  readonly passwordInput = this.page.locator("#password");
-  readonly loginBtn = this.page.locator("#login-button");
-  readonly errorMsg = this.page.locator("[data-test='error']");
+export class LoginPage {
+  constructor(private page: Page) {}
 
-  constructor(page: Page) {
-    super(page);
+  async navigate() {
+    await this.page.goto("/");
   }
 
   async login(username: string, password: string) {
-    await this.usernameInput.fill(username);
-    await this.passwordInput.fill(password);
-    await this.loginBtn.click();
-  }
-
-  async assertLoginError(message: string) {
-    await expect(this.errorMsg).toContainText(message);
+    await this.page.fill("#user-name", username);
+    await this.page.fill("#password", password);
+    await this.page.click("#login-button");
   }
 }
